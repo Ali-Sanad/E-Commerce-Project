@@ -149,9 +149,11 @@ userRouter.post("/login", async (req, res) => {
       // res.json(token);
       if (user.role == 1) {
         // res.json(token);
-        res.send({ message: "Welcome Admin", token });
+        // message: "Welcome Admin"
+        res.send({ token });
       } else {
-        res.send({ message: "Welcome User", token });
+        //message: "Welcome User"
+        res.send({ token });
       }
     } else {
       res.send("Wrong username or password");
