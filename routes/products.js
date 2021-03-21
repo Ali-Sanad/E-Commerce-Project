@@ -31,7 +31,7 @@ const upload = multer({
 //get all  products -no need for authentication here
 productRouter.get("/", async (req, res) => {
   const product = await Product.find().exec();
-  res.send(product);
+  res.status(200).send(product);
 });
 
 // //get product by id
@@ -92,10 +92,10 @@ productRouter.post(
         country,
         image,
       });
-      res.send({ message: "product created successfully", product });
+      res.status(200).send({ message: "product created successfully", product });
     } catch (err) {
       console.log(err);
-      res.send({ message: "product was not created" });
+      res.status(401).send({ message: "product was not created" });
     }
   }
 );
@@ -106,10 +106,10 @@ productRouter.delete("/:id", authAdmin, async (req, res) => {
     const id = req.params.id;
     const product = await Product.findOne({ _id: id }).remove().exec();
 
-    res.send({ status: true, message: "Product is deleted" });
+    res.status(200).send({ status: true, message: "Product is deleted" });
   } catch (error) {
     console.log(error);
-    res.send({ status: false, message: "Product is not deleted" });
+    res.status(401).send({ status: false, message: "Product is not deleted" });
   }
 });
 
@@ -126,7 +126,7 @@ productRouter.patch("/:id", authAdmin, async (req, res) => {
         quantity: quantity,
       }
     ).exec();
-    res.send({ messege: "Product updated successfully" });
+    res.status(200).send({ messege: "Product updated successfully" });
   } catch {
     console.log(err);
     res.statusCode = 422;
@@ -150,7 +150,7 @@ productRouter.patch(
           image: image,
         }
       ).exec();
-      res.send({ messege: "Product's image updated successfully" });
+      res.status(200).send({ messege: "Product's image updated successfully" });
     } catch {
       console.log(err);
       res.statusCode = 422;

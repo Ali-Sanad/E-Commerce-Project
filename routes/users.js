@@ -50,9 +50,9 @@ userRouter.get("/:id" ,authAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findOne({ _id: id }).exec();
-    res.send(user);
+    res.status(200).send(user);
   } catch (error) {
-    res.send({ message: "No Such User Exists" });
+    res.status(401).send({ message: "No Such User Exists" });
   }
 });
 
@@ -62,7 +62,7 @@ userRouter.delete("/:id" ,authAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findOne({ _id: id }).remove().exec();
-    res.send({ message: "User is removed" });
+    res.status(200).send({ message: "User is removed" });
   } catch (error) {
     console.log(error);
     res.statusCode = 401;
@@ -134,8 +134,9 @@ userRouter.post("/login", async (req, res) => {
     let user = await User.findOne({ userName }).exec();
 
     if (!user) {
-      res.send("Wrong username or password");
-      throw new Error("No such user found");
+      res.send({status:false
+        ,message:"Wrong username or password"});
+      //throw new Error("No such user found");
     }
 
     const isMatched = await bcrypt.compare(password, user.password);
@@ -144,20 +145,21 @@ userRouter.post("/login", async (req, res) => {
 
     if (isMatched) { 
       //Generate token
-      const token = jwt.sign({ id: user._id }, "Potato-Man");
+      const token = jwt.sign({ id: user._id }, process.env.SECRET);
       // console.log(token);
       // res.json(token);
       if (user.role == 1) {
         // res.json(token);
         // message: "Welcome Admin"
-        res.send({ token });
+        res.status(200).send({ token });
       } else {
         //message: "Welcome User"
-        res.send({ token });
+        res.status(200).send({ token });
       }
     } else {
-      res.send("Wrong username or password");
-      throw new Error("No such user found");
+      res.status(401).send({status:false,
+      message:"Wrong username or password"});
+         // throw new Error("No such user found");
     }
   } catch (err) {
     console.log(err);

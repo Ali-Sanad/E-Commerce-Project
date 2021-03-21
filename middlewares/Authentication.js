@@ -8,7 +8,7 @@ const User = require('../models/User');
           //get current user token by the header
           const {authorization} = req.headers;
           //decoding the token to yield hash, and compare it with the hashed data
-          const signedData = jwt.verify(authorization, 'Potato-Man');
+          const signedData = jwt.verify(authorization, process.env.SECRET);
           req.signedData = signedData;
           next();
         } 

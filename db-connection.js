@@ -1,8 +1,6 @@
-const mongoose = require("mongoose"); ///Mongoose Package
+const mongoose = require("mongoose"); 
 //// MONGoose Connect to Atlas DATABASE ////////
-//url will be replaced with *process.env.MONGO_DB* for security
-const url =
-  "mongodb+srv://Admin:aCXJ9tXiRdDFHZn9@cluster0.q7ibq.mongodb.net/E-Shop?retryWrites=true&w=majority";
+const url =process.env.MONGO_DB_CONNECTION_STRING;
 
 mongoose
   .connect(url, {
