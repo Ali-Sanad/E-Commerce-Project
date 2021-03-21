@@ -81,7 +81,7 @@ userRouter.delete("/:id" ,authAdmin, async (req, res) => {
 // User Area*******
 // User Signup
 
-userRouter.post("/signUp",upload.single("userImage"), async (req, res) => {
+userRouter.post("/signUp",upload.single("file"), async (req, res) => {
   const {
     userName,
     password,
@@ -142,7 +142,7 @@ userRouter.post("/login", async (req, res) => {
 
     console.log(isMatched);
 
-    if (isMatched) {
+    if (isMatched) { 
       //Generate token
       const token = jwt.sign({ id: user._id }, "Potato-Man");
       // console.log(token);

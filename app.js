@@ -25,8 +25,15 @@ app.use((req, res, next) => {
   next();
 });
 
+////// Parse JSON BODY PARSER
+app.use(express.json()); 
+app.use(bodyParser.json({limit: '50mb'}));
 
-app.use(express.json()); ////// Parse JSON BODY PARSER
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  extended: true
+}));
+
 app.use(express.static('public'))
 app.use(express.static('public/uploads'));
 

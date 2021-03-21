@@ -65,7 +65,7 @@ productRouter.get('/search/:productName',async(req,res)=>{
 productRouter.post(
   "/",
   authAdmin,
-  upload.single("productImage"),
+  upload.single("image"),
   async (req, res) => {
     try {
       const {
@@ -137,7 +137,7 @@ productRouter.patch("/:id", authAdmin, async (req, res) => {
 //Update product image
 productRouter.patch(
   "/updateImage/:id",
-  upload.single("productImage"),
+  upload.single("image"),
   authAdmin,
   async (req, res) => {
     try {
